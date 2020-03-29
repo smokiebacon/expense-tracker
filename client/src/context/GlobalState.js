@@ -30,7 +30,6 @@ export const GlobalProvider = ({ children }) => {
   }
   async function deleteTransaction(id) {
     try {
-      console.log(id, 'i am id from GLobalstate');
       await axios.delete(`/api/v1/transactions/${id}`);
       dispatch({
         type: 'DELETE_TRANSACTION',
@@ -43,11 +42,28 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   }
-  function addTransaction(transaction) {
-    dispatch({
-      type: 'ADD_TRANSACTION',
-      payload: transaction
-    });
+  async function addTransaction(transaction) {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const response = await axios.post(
+        '/api/v1/transactions/',
+        transaction,
+        config
+      );
+      dispatch({
+        type: 'ADD_TRANSACTION',
+        payload: response.data.data
+      });
+    } catch (error) {
+      dispatch({
+        type: 'TRANSACTION_ERROR',
+        payload: error.response.data.error
+      });
+    }
   }
   function editTransaction(transaction) {
     dispatch({
