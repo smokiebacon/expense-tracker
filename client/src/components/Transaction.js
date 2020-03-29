@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -6,17 +6,16 @@ import Button from 'react-bootstrap/Button';
 import { EditTransaction } from './EditTransaction';
 
 export const Transaction = ({ transaction }) => {
-  const sign = transaction.amount < 0 ? '-' : '+';
-  const variantClass = transaction.amount < 0 ? 'danger' : 'success';
+  const sign = transaction.amount < 0 ? '+' : '-';
+  const variantClass = transaction.amount < 0 ? 'success' : 'danger';
   const { deleteTransaction } = useContext(GlobalContext);
-
   return (
     <div>
       <Card border="primary" style={{ width: '20rem' }}>
         <Card.Header className="text-muted">
           Today
           <Button
-            onClick={() => deleteTransaction(transaction.id)}
+            onClick={() => deleteTransaction(transaction._id)}
             variant="outline-danger"
           >
             X

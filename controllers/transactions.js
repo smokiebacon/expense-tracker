@@ -7,7 +7,6 @@ const Day = require('../models/Day');
 exports.getTransactions = async (req, res, next) => {
   try {
     const transactions = await Transaction.find({});
-    console.log(transactions, 'trans');
     res.status(200).json({
       count: transactions.length,
       data: transactions

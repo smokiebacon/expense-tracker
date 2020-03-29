@@ -29,11 +29,19 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   }
-  function deleteTransaction(id) {
-    dispatch({
-      type: 'DELETE_TRANSACTION',
-      payload: id
-    });
+  async function deleteTransaction(id) {
+    try {
+      const response = await axios.delete(`/api/v1/transactions/${id}`);
+      dispatch({
+        type: 'DELETE_TRANSACTION',
+        payload: response.data.id
+      });
+    } catch (error) {
+      dispatch({
+        type: 'TRANSACTION_ERROR',
+        payload: error.response.data.error
+      });
+    }
   }
   function addTransaction(transaction) {
     dispatch({
