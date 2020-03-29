@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
-import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 //initial state
@@ -31,10 +30,11 @@ export const GlobalProvider = ({ children }) => {
   }
   async function deleteTransaction(id) {
     try {
-      const response = await axios.delete(`/api/v1/transactions/${id}`);
+      console.log(id, 'i am id from GLobalstate');
+      await axios.delete(`/api/v1/transactions/${id}`);
       dispatch({
         type: 'DELETE_TRANSACTION',
-        payload: response.data.id
+        payload: id
       });
     } catch (error) {
       dispatch({

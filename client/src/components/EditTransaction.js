@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
-import { v4 as uuidv4 } from 'uuid';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -80,7 +79,6 @@ export const EditTransaction = transaction => {
   const onSubmit = e => {
     e.preventDefault();
     const newTransaction = {
-      id: uuidv4(),
       text,
       amount: +amount,
       category
